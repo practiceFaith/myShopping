@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <div class="container">
+        <div class="row">
+            <table class="table table-hover table-bordered text-center">
+                <caption style="caption-side: top" class="h3 text-center">我的购物车</caption>
+                <tr>
+                    <th>全选 <input type="checkbox" v-model="checkedAll"></th>
+                    <td>物品</td>
+                    <td>描述</td>
+                    <td>单价</td>
+                    <td>数量</td>
+                    <td>小计</td>
+                    <td>操作</td>
+                </tr>
+                <tr v-for="product in products" v-cloak>
+                    <td><input type="checkbox" v-model="product.isChecked" ></td>
+                    <td><img :src="product.productIcon" :title="product.productName" width="50" height="60"></td>
+                    <td>{{product.productInfo}}</td>
+                    <td>{{product.productPrice}}</td>
+                    <td><input type="number" v-model.number="product.productCount" min="0" style="width:50px"></td>
+                    <td>{{product.productPrice*product.productCount | toFixed(2)}}</td>
+                    <td>
+                        <button class="btn btn-danger" @click="remove(product)">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>合计:</td>
+                    <td colspan="7">{{sum | toFixed(2)}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script src="node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/axios/dist/axios.js"></script>
+<script src="index.js"></script>
+</body>
+</html>
